@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_daftar_movie/models/movie.dart';
+import 'package:flutter_daftar_movie/screens/detail_screen.dart';
 import 'package:flutter_daftar_movie/service/api_services.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,7 +18,8 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Movie> _popularMovies = [];
 
   @override
-  initState() {
+  void initState() {
+    // TODO: implement initState
     super.initState();
     _loadMovies();
   }
@@ -42,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Pilem')),
+      appBar: AppBar(title: const Text('Film')),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,13 +79,14 @@ class _HomeScreenState extends State<HomeScreen> {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
-                  onTap: () => {
+                  onTap: () {
+                    // Handle movie tap, e.g., navigate to details page
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => DetailScreen(movie: movie),
                       ),
-                    ),
+                    );
                   },
                   child: Column(
                     children: [
@@ -108,54 +111,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ],
-    );
-  }
-}
-
-class DetailScreen extends StatelessWidget {
-  final Movie movie;
-
-  const DetailScreen({super.key, required this.movie});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(movie.title)),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.network(
-              'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-              width: double.infinity,
-              height: 300,
-              fit: BoxFit.cover,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    movie.title,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Rating: ${movie.voteAverage}',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(movie.overview, style: const TextStyle(fontSize: 14)),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
