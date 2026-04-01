@@ -47,24 +47,27 @@ class _DetailScreenState extends State<DetailScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.network(
-            widget.movie.backdropPath != ''
-                ? 'https://image.tmdb.org/t/p/w500${widget.movie.backdropPath}'
-                : 'https://via.placeholder.com/500?text=No+Image',
-            height: 300,
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
-
-          Positioned(
-            top: 10,
-            right: 10,
-            child: IconButton(
-              onPressed: _toggleFavorite,
-              icon: _isFavorite
-                  ? const Icon(Icons.favorite, color: Colors.red)
-                  : const Icon(Icons.favorite_border),
-            ),
+          Stack(
+            children: [
+              Image.network(
+                widget.movie.backdropPath != ''
+                    ? 'https://image.tmdb.org/t/p/w500${widget.movie.backdropPath}'
+                    : 'https://via.placeholder.com/500?text=No+Image',
+                height: 300,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+              Positioned(
+                bottom: 8,
+                right: 8,
+                child: IconButton(
+                  onPressed: _toggleFavorite,
+                  icon: _isFavorite
+                      ? const Icon(Icons.favorite, color: Colors.red)
+                      : const Icon(Icons.favorite_border),
+                ),
+              ),
+            ],
           ),
 
           const SizedBox(height: 20),
